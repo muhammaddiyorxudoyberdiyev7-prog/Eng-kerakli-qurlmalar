@@ -1,0 +1,2030 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>FOYDALI.UZ 2.0</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+    --bg:#f5f7fb;
+    --card:#fff;
+    --text:#172033;
+    --muted:#718096;
+    --primary:#2563eb;
+    --primary2:#4f46e5;
+    --border:#e5e9f2;
+    --soft:#eef4ff;
+    --danger:#ef4444;
+}
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    transition:.3s;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+
+/* SIDEBAR */
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:250px;
+    height:100vh;
+    background:var(--card);
+    border-right:1px solid var(--border);
+    padding:25px 16px;
+    z-index:100;
+}
+.logo{
+    font-size:25px;
+    font-weight:900;
+    color:var(--primary);
+    padding:0 12px 30px;
+}
+.logo span{color:var(--text)}
+.menu-title{
+    font-size:11px;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin:18px 12px 8px;
+    letter-spacing:1px;
+}
+.side-btn{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    padding:13px;
+    border-radius:11px;
+    text-align:left;
+    margin:3px 0;
+    transition:.2s;
+}
+.side-btn:hover,.side-btn.active{
+    background:var(--soft);
+    color:var(--primary);
+}
+.side-bottom{
+    position:absolute;
+    bottom:20px;
+    left:16px;
+    right:16px;
+}
+
+/* MAIN */
+.main{
+    margin-left:250px;
+    min-height:100vh;
+}
+.topbar{
+    height:75px;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 35px;
+    position:sticky;
+    top:0;
+    z-index:50;
+}
+.search{
+    width:420px;
+    position:relative;
+}
+.search input{
+    width:100%;
+    border:1px solid var(--border);
+    background:var(--bg);
+    padding:12px 16px 12px 42px;
+    border-radius:12px;
+    outline:none;
+    color:var(--text);
+}
+.search span{
+    position:absolute;
+    left:15px;
+    top:11px;
+}
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+.icon-btn{
+    width:42px;
+    height:42px;
+    border:1px solid var(--border);
+    background:var(--card);
+    border-radius:11px;
+}
+.avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,var(--primary),var(--primary2));
+    color:#fff;
+    font-weight:bold;
+}
+
+/* CONTENT */
+.content{padding:35px}
+.hero{
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:#fff;
+    border-radius:24px;
+    padding:35px;
+    position:relative;
+    overflow:hidden;
+}
+.hero:after{
+    content:"";
+    position:absolute;
+    width:300px;height:300px;
+    border-radius:50%;
+    right:-100px;top:-120px;
+    background:#ffffff18;
+}
+.hero h1{
+    font-size:38px;
+    margin-bottom:10px;
+}
+.hero p{opacity:.85;max-width:600px;line-height:1.6}
+.hero button{
+    margin-top:20px;
+    padding:12px 20px;
+    border:0;
+    border-radius:10px;
+    background:#fff;
+    color:var(--primary);
+    font-weight:bold;
+}
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:35px 0 18px;
+}
+.section-head h2{font-size:23px}
+.muted{color:var(--muted)}
+
+/* TOOLS */
+.tools{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:17px;
+}
+.tool{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:20px;
+    transition:.25s;
+    position:relative;
+}
+.tool:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 35px #0000000c;
+}
+.tool-icon{
+    width:48px;height:48px;
+    display:grid;place-items:center;
+    background:var(--soft);
+    border-radius:13px;
+    font-size:23px;
+    margin-bottom:15px;
+}
+.tool h3{font-size:16px;margin-bottom:7px}
+.tool p{font-size:13px;color:var(--muted);line-height:1.5}
+.star{
+    position:absolute;
+    right:15px;
+    top:15px;
+    border:0;
+    background:none;
+    font-size:19px;
+    color:#cbd5e1;
+}
+.star.on{color:#f59e0b}
+
+/* STATS */
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:17px;
+    margin-top:25px;
+}
+.stat{
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:22px;
+    border-radius:16px;
+}
+.stat strong{
+    display:block;
+    color:var(--primary);
+    font-size:28px;
+    margin-top:5px;
+}
+
+/* TOOL WINDOW */
+.tool-window{
+    display:none;
+    margin-top:25px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:28px;
+}
+.tool-window.show{display:block}
+.window-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+.close{
+    border:0;
+    background:#fee2e2;
+    color:#dc2626;
+    width:36px;height:36px;
+    border-radius:9px;
+}
+.field{
+    width:100%;
+    padding:12px;
+    border:1px solid var(--border);
+    background:var(--bg);
+    color:var(--text);
+    border-radius:10px;
+    outline:none;
+    margin-bottom:12px;
+}
+.primary{
+    border:0;
+    background:var(--primary);
+    color:#fff;
+    padding:12px 18px;
+    border-radius:10px;
+}
+.result{
+    margin-top:15px;
+    background:var(--soft);
+    color:var(--primary);
+    padding:16px;
+    border-radius:11px;
+    font-weight:bold;
+}
+
+/* CALCULATOR */
+.calc{
+    max-width:360px;
+}
+.calc-screen{
+    height:70px;
+    background:#111827;
+    color:#fff;
+    border-radius:12px;
+    margin-bottom:10px;
+    padding:18px;
+    text-align:right;
+    font-size:27px;
+    overflow:hidden;
+}
+.calc-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:7px;
+}
+.calc-grid button{
+    height:52px;
+    border:0;
+    border-radius:9px;
+    background:var(--bg);
+    color:var(--text);
+}
+.calc-grid .eq{
+    background:var(--primary);
+    color:#fff;
+}
+
+/* TODO */
+.todo-row{
+    display:flex;
+    gap:10px;
+}
+.todo-row input{flex:1}
+.todo-list{
+    list-style:none;
+    margin-top:15px;
+}
+.todo-list li{
+    padding:12px;
+    background:var(--bg);
+    border-radius:9px;
+    margin-bottom:7px;
+    display:flex;
+    justify-content:space-between;
+}
+.delete{
+    border:0;
+    color:var(--danger);
+    background:transparent;
+}
+
+/* PASSWORD */
+.password{
+    padding:17px;
+    background:#111827;
+    color:#22c55e;
+    border-radius:11px;
+    font-family:monospace;
+    word-break:break-all;
+    margin-bottom:12px;
+}
+
+/* TEXT */
+.textarea{min-height:180px;resize:vertical}
+.text-stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:12px;
+}
+.text-stat{
+    background:var(--bg);
+    padding:17px;
+    text-align:center;
+    border-radius:10px;
+}
+.text-stat strong{
+    display:block;
+    font-size:25px;
+    color:var(--primary);
+}
+
+/* COLOR */
+.color-preview{
+    height:180px;
+    border-radius:17px;
+    margin-bottom:15px;
+}
+
+.diploma-form{
+    max-width:600px;
+    margin-bottom:30px;
+}
+
+.diploma{
+    background:
+        linear-gradient(135deg,#fff,#f5f7ff);
+
+    border:12px solid #2563eb;
+
+    padding:55px 40px;
+
+    text-align:center;
+
+    position:relative;
+
+    min-height:480px;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.15);
+
+    overflow:hidden;
+}
+
+.diploma:before{
+    content:"";
+    position:absolute;
+
+    inset:15px;
+
+    border:2px solid #d4af37;
+
+    pointer-events:none;
+}
+
+.diploma-top{
+    font-size:15px;
+    letter-spacing:4px;
+    color:#2563eb;
+    font-weight:bold;
+}
+
+.diploma h1{
+    font-size:48px;
+    margin:25px 0 10px;
+
+    color:#172033;
+
+    letter-spacing:5px;
+}
+
+.diploma-subtitle{
+    color:#64748b;
+    font-size:16px;
+}
+
+.diploma-name{
+    font-size:36px;
+    font-weight:900;
+
+    color:#2563eb;
+
+    margin:25px 0;
+
+    border-bottom:2px solid #d4af37;
+
+    display:inline-block;
+
+    padding:0 30px 8px;
+}
+
+.diploma-course{
+    font-size:20px;
+
+    color:#172033;
+
+    margin:15px 0;
+}
+
+.diploma-course strong{
+    color:#2563eb;
+}
+
+.diploma-footer{
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:65px;
+
+    padding:0 35px;
+
+    font-size:13px;
+
+    color:#64748b;
+}
+
+.diploma-seal{
+    position:absolute;
+
+    right:35px;
+    bottom:55px;
+
+    width:80px;
+    height:80px;
+
+    border-radius:50%;
+
+    border:4px solid #d4af37;
+
+    display:grid;
+    place-items:center;
+
+    font-size:32px;
+
+    background:#fff;
+}
+
+.print-btn{
+    margin-top:20px;
+
+    padding:13px 22px;
+
+    border:0;
+
+    border-radius:10px;
+
+    background:#16a34a;
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+@media(max-width:600px){
+
+    .diploma{
+        padding:40px 20px;
+    }
+
+    .diploma h1{
+        font-size:32px;
+    }
+
+    .diploma-name{
+        font-size:25px;
+    }
+
+    .diploma-footer{
+        padding:0;
+        gap:20px;
+    }
+
+}
+
+/* HISTORY */
+.history-item{
+    padding:13px;
+    background:var(--bg);
+    border-radius:10px;
+    margin-bottom:8px;
+    display:flex;
+    justify-content:space-between;
+}
+.empty{
+    text-align:center;
+    padding:35px;
+    color:var(--muted);
+}
+
+/* DARK */
+body.dark{
+    --bg:#0f172a;
+    --card:#172033;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+    --border:#28364e;
+    --soft:#172f58;
+}
+body.dark .search input{
+    background:#0f172a;
+}
+body.dark .icon-btn{
+    background:var(--card);
+}
+
+/* MOBILE */
+.mobile-menu{
+    display:none;
+}
+@media(max-width:1100px){
+    .tools{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:800px){
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.3s;
+    }
+    .sidebar.open{transform:translateX(0)}
+    .main{margin-left:0}
+    .mobile-menu{display:block}
+    .topbar{padding:0 17px}
+    .search{width:calc(100% - 110px)}
+    .tools{grid-template-columns:repeat(2,1fr)}
+    .content{padding:20px}
+}
+@media(max-width:520px){
+    .tools{grid-template-columns:1fr}
+    .stats{grid-template-columns:1fr}
+    .hero h1{font-size:28px}
+    .topbar{gap:8px}
+    .search{width:100%}
+    .avatar{display:none}
+    .text-stats{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo">
+        FOYDALI<span>.UZ</span>
+    </div>
+
+    <div class="menu-title">Asosiy</div>
+
+    <button class="side-btn active" onclick="showPage('home',this)">
+        🏠 Bosh sahifa
+    </button>
+
+    <button class="side-btn" onclick="showPage('favorites',this)">
+        ⭐ Sevimlilar
+    </button>
+
+    <button class="side-btn" onclick="showPage('history',this)">
+        🕘 Tarix
+    </button>
+
+    <div class="menu-title">Sozlamalar</div>
+
+    <button class="side-btn" onclick="toggleTheme()">
+        🌙 Tungi rejim
+    </button>
+
+    <button class="side-btn" onclick="clearAllData()">
+        🗑 Ma'lumotlarni tozalash
+    </button>
+
+    <div class="side-bottom">
+        <div class="muted" style="font-size:12px;padding:12px">
+            FOYDALI.UZ 2.0<br>
+            Siz uchun foydali vositalar 🚀
+        </div>
+    </div>
+
+</aside>
+
+
+<!-- MAIN -->
+<main class="main">
+
+    <header class="topbar">
+
+        <button class="icon-btn mobile-menu"
+                onclick="toggleSidebar()">
+            ☰
+        </button>
+
+        <div class="search">
+            <span>🔎</span>
+            <input
+                id="globalSearch"
+                placeholder="Asbob qidirish..."
+                oninput="filterTools()"
+            >
+        </div>
+
+        <div class="top-actions">
+
+            <button class="icon-btn"
+                    onclick="toggleTheme()">
+                🌓
+            </button>
+
+            <div class="avatar">U</div>
+
+        </div>
+
+    </header>
+
+
+    <div class="content">
+
+        <!-- HOME -->
+        <div id="homePage">
+
+            <section class="hero">
+
+                <h1>
+                    Kundalik ishlaringizni
+                    osonlashtiring 🚀
+                </h1>
+
+                <p>
+                    Kalkulyator, parol generatori, timer,
+                    matn analizatori, konvertorlar va
+                    boshqa foydali vositalar — barchasi
+                    bitta joyda.
+                </p>
+
+                <button onclick="scrollToTools()">
+                    🧰 Asboblarni ko‘rish
+                </button>
+
+            </section>
+
+
+            <div class="section-head">
+                <div>
+                    <h2>⚡ Tezkor asboblar</h2>
+                    <p class="muted">Kerakli vositani tanlang</p>
+                </div>
+            </div>
+
+
+            <section class="tools" id="toolsGrid">
+
+                <div class="tool" data-name="kalkulyator calculator"
+                     onclick="openTool('calculator','Kalkulyator')">
+                    <button class="star"
+                            onclick="favorite(event,'calculator')">☆</button>
+                    <div class="tool-icon">🧮</div>
+                    <h3>Kalkulyator</h3>
+                    <p>Hisob-kitoblarni tez bajaring.</p>
+                </div>
+
+                <div class="tool" data-name="valyuta dollar euro pul"
+                     onclick="openTool('currency','Valyuta konvertori')">
+                    <button class="star"
+                            onclick="favorite(event,'currency')">☆</button>
+                    <div class="tool-icon">💰</div>
+                    <h3>Valyuta</h3>
+                    <p>Valyutalarni hisoblang.</p>
+                </div>
+
+                <div class="tool" data-name="olchov kg metr litr"
+                     onclick="openTool('units','O‘lchov konvertori')">
+                    <button class="star"
+                            onclick="favorite(event,'units')">☆</button>
+                    <div class="tool-icon">📏</div>
+                    <h3>O‘lchov</h3>
+                    <p>Kg, metr, litr va boshqalar.</p>
+                </div>
+
+                <div class="tool" data-name="yosh sana birthday"
+                     onclick="openTool('age','Yosh hisoblagich')">
+                    <button class="star"
+                            onclick="favorite(event,'age')">☆</button>
+                    <div class="tool-icon">🎂</div>
+                    <h3>Yosh</h3>
+                    <p>Tug‘ilgan sanadan yoshni toping.</p>
+                </div>
+
+                <div class="tool" data-name="timer stopwatch vaqt"
+                     onclick="openTool('timer','Timer')">
+                    <button class="star"
+                            onclick="favorite(event,'timer')">☆</button>
+                    <div class="tool-icon">⏱️</div>
+                    <h3>Timer</h3>
+                    <p>Vaqtni hisoblang.</p>
+                </div>
+
+                <div class="tool" data-name="todo vazifa task"
+                     onclick="openTool('todo','To-do List')">
+                    <button class="star"
+                            onclick="favorite(event,'todo')">☆</button>
+                    <div class="tool-icon">📝</div>
+                    <h3>To-do List</h3>
+                    <p>Vazifalarni boshqaring.</p>
+                </div>
+
+                <div class="tool" data-name="password parol"
+                     onclick="openTool('password','Parol generator')">
+                    <button class="star"
+                            onclick="favorite(event,'password')">☆</button>
+                    <div class="tool-icon">🔐</div>
+                    <h3>Parol generator</h3>
+                    <p>Kuchli parol yarating.</p>
+                </div>
+                  
+                <!-- DIPLOMA TOOL -->
+
+<div id="diplomaTool"
+     class="tool-content"
+     style="display:none">
+
+    <div class="diploma-form">
+
+        <input
+            class="field"
+            id="diplomaName"
+            placeholder="👤 Ism va familiya">
+
+        <input
+            class="field"
+            id="diplomaCourse"
+            placeholder="📚 Kurs nomi">
+
+        <input
+            class="field"
+            id="diplomaDate"
+            type="date">
+
+        <input
+            class="field"
+            id="diplomaTeacher"
+            placeholder="👨‍🏫 O‘qituvchi ismi">
+
+        <button
+            class="primary"
+            onclick="generateDiploma()">
+
+            🎓 Diplom yaratish
+
+        </button>
+
+    </div>
+
+    <div id="diplomaPreview"></div>
+
+</div>
+
+                <div class="tool" data-name="text matn word soz belgi"
+                     onclick="openTool('text','Matn analizatori')">
+                    <button class="star"
+                            onclick="favorite(event,'text')">☆</button>
+                    <div class="tool-icon">📋</div>
+                    <h3>Matn analizatori</h3>
+                    <p>So‘z va belgilarni hisoblang.</p>
+                </div>
+
+                <div class="tool" data-name="color rang hex"
+                     onclick="openTool('color','Rang generator')">
+                    <button class="star"
+                            onclick="favorite(event,'color')">☆</button>
+                    <div class="tool-icon">🎨</div>
+                    <h3>Rang generator</h3>
+                    <p>HEX rang kodini yarating.</p>
+                </div>
+
+            </section>
+
+
+            <div class="stats">
+
+                <div class="stat">
+                    <span class="muted">Jami vositalar</span>
+                    <strong>9+</strong>
+                </div>
+
+                <div class="stat">
+                    <span class="muted">Ishlatilgan vositalar</span>
+                    <strong id="usedCount">0</strong>
+                </div>
+
+                <div class="stat">
+                    <span class="muted">Sevimlilar</span>
+                    <strong id="favCount">0</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FAVORITES -->
+        <div id="favoritesPage" style="display:none">
+
+            <div class="section-head">
+                <div>
+                    <h2>⭐ Sevimli vositalar</h2>
+                    <p class="muted">
+                        Siz belgilagan vositalar
+                    </p>
+                </div>
+            </div>
+
+            <div id="favoriteList"></div>
+
+        </div>
+
+
+        <!-- HISTORY -->
+        <div id="historyPage" style="display:none">
+
+            <div class="section-head">
+                <div>
+                    <h2>🕘 Foydalanish tarixi</h2>
+                    <p class="muted">
+                        Oxirgi ishlatilgan vositalar
+                    </p>
+                </div>
+
+                <button class="primary"
+                        onclick="clearHistory()">
+                    Tozalash
+                </button>
+            </div>
+
+            <div id="historyList"></div>
+
+        </div>
+
+
+        <!-- TOOL WINDOW -->
+        <section class="tool-window" id="toolWindow">
+
+            <div class="window-title">
+                <h2 id="windowTitle">Asbob</h2>
+                <button class="close"
+                        onclick="closeTool()">×</button>
+            </div>
+
+
+            <!-- CALCULATOR -->
+            <div id="calculatorTool" class="tool-content">
+
+                <div class="calc">
+
+                    <div class="calc-screen"
+                         id="calcScreen">0</div>
+
+                    <div class="calc-grid">
+
+                        <button onclick="calcClear()">C</button>
+                        <button onclick="calcDelete()">⌫</button>
+                        <button onclick="calcAdd('%')">%</button>
+                        <button onclick="calcAdd('/')">÷</button>
+
+                        <button onclick="calcAdd('7')">7</button>
+                        <button onclick="calcAdd('8')">8</button>
+                        <button onclick="calcAdd('9')">9</button>
+                        <button onclick="calcAdd('*')">×</button>
+
+                        <button onclick="calcAdd('4')">4</button>
+                        <button onclick="calcAdd('5')">5</button>
+                        <button onclick="calcAdd('6')">6</button>
+                        <button onclick="calcAdd('-')">−</button>
+
+                        <button onclick="calcAdd('1')">1</button>
+                        <button onclick="calcAdd('2')">2</button>
+                        <button onclick="calcAdd('3')">3</button>
+                        <button onclick="calcAdd('+')">+</button>
+
+                        <button onclick="calcAdd('0')">0</button>
+                        <button onclick="calcAdd('.')">.</button>
+                        <button class="eq"
+                                onclick="calcResult()">=</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CURRENCY -->
+            <div id="currencyTool" class="tool-content"
+                 style="display:none">
+
+                <input class="field"
+                       id="currencyAmount"
+                       type="number"
+                       placeholder="Miqdor">
+
+                <select class="field" id="fromCurrency">
+                    <option value="UZS">UZS — So‘m</option>
+                    <option value="USD">USD — Dollar</option>
+                    <option value="EUR">EUR — Yevro</option>
+                </select>
+
+                <select class="field" id="toCurrency">
+                    <option value="USD">USD — Dollar</option>
+                    <option value="UZS">UZS — So‘m</option>
+                    <option value="EUR">EUR — Yevro</option>
+                </select>
+
+                <button class="primary"
+                        onclick="convertCurrency()">
+                    Hisoblash
+                </button>
+
+                <div class="result"
+                     id="currencyResult">
+                    Natija
+                </div>
+
+                <p class="muted" style="margin-top:10px">
+                    Demo kurslar ishlatilmoqda.
+                </p>
+
+            </div>
+
+
+            <!-- UNITS -->
+            <div id="unitsTool" class="tool-content"
+                 style="display:none">
+
+                <input class="field"
+                       id="unitValue"
+                       type="number"
+                       placeholder="Qiymat">
+
+                <select class="field"
+                        id="unitType">
+                    <option value="km">Km → Metr</option>
+                    <option value="m">Metr → Santimetr</option>
+                    <option value="kg">Kg → Gramm</option>
+                    <option value="l">Litr → Millilitr</option>
+                </select>
+
+                <button class="primary"
+                        onclick="convertUnit()">
+                    Hisoblash
+                </button>
+
+                <div class="result"
+                     id="unitResult">
+                    Natija
+                </div>
+
+            </div>
+
+
+            <!-- AGE -->
+            <div id="ageTool" class="tool-content"
+                 style="display:none">
+
+                <input class="field"
+                       id="birthDate"
+                       type="date">
+
+                <button class="primary"
+                        onclick="calculateAge()">
+                    🎂 Hisoblash
+                </button>
+
+                <div class="result"
+                     id="ageResult">
+                    Natija
+                </div>
+
+            </div>
+
+
+            <!-- TIMER -->
+            <div id="timerTool" class="tool-content"
+                 style="display:none">
+
+                <div style="text-align:center">
+
+                    <div id="timerDisplay"
+                         style="font-size:60px;
+                         font-weight:bold;
+                         color:var(--primary);
+                         margin:25px">
+                        00:00:00
+                    </div>
+
+                    <button class="primary"
+                            onclick="startTimer()">
+                        ▶ Boshlash
+                    </button>
+
+                    <button class="primary"
+                            onclick="pauseTimer()">
+                        ⏸ To‘xtatish
+                    </button>
+
+                    <button class="primary"
+                            onclick="resetTimer()">
+                        🔄 Reset
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- TODO -->
+            <div id="todoTool" class="tool-content"
+                 style="display:none">
+
+                <div class="todo-row">
+
+                    <input class="field"
+                           id="todoInput"
+                           placeholder="Vazifa yozing..."
+                           onkeydown="if(event.key==='Enter')addTodo()">
+
+                    <button class="primary"
+                            onclick="addTodo()">
+                        Qo‘shish
+                    </button>
+
+                </div>
+
+                <ul class="todo-list"
+                    id="todoList"></ul>
+
+            </div>
+
+
+            <!-- PASSWORD -->
+            <div id="passwordTool" class="tool-content"
+                 style="display:none">
+
+                <div class="password"
+                     id="passwordResult">
+                    Parol yaratish uchun tugmani bosing.
+                </div>
+
+                <input class="field"
+                       id="passwordLength"
+                       type="number"
+                       min="4"
+                       max="50"
+                       value="16">
+
+                <button class="primary"
+                        onclick="generatePassword()">
+                    🔐 Yaratish
+                </button>
+
+                <button class="primary"
+                        onclick="copyPassword()">
+                    📋 Nusxalash
+                </button>
+
+            </div>
+            
+
+
+            <!-- TEXT -->
+            <div id="textTool" class="tool-content"
+                 style="display:none">
+
+                <textarea class="field textarea"
+                          id="textInput"
+                          placeholder="Matningizni yozing..."
+                          oninput="analyzeText()"></textarea>
+
+                <div class="text-stats">
+
+                    <div class="text-stat">
+                        <strong id="words">0</strong>
+                        So‘z
+                    </div>
+
+                    <div class="text-stat">
+                        <strong id="chars">0</strong>
+                        Belgi
+                    </div>
+
+                    <div class="text-stat">
+                        <strong id="lines">0</strong>
+                        Satr
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- COLOR -->
+            <div id="colorTool" class="tool-content"
+                 style="display:none">
+
+                <div class="color-preview"
+                     id="colorPreview"></div>
+
+                <h2 id="hexColor"
+                    style="margin-bottom:15px">
+                    #2563EB
+                </h2>
+
+                <button class="primary"
+                        onclick="newColor()">
+                    🎨 Yangi rang
+                </button>
+
+                <button class="primary"
+                        onclick="copyColor()">
+                    📋 HEX nusxalash
+                </button>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+/* ==========================
+   DATA
+========================== */
+
+const toolNames = {
+    calculator:"Kalkulyator",
+    currency:"Valyuta konvertori",
+    units:"O‘lchov konvertori",
+    age:"Yosh hisoblagich",
+    timer:"Timer",
+    todo:"To-do List",
+    password:"Parol generator",
+    text:"Matn analizatori",
+    color:"Rang generator"
+};
+
+let favorites =
+    JSON.parse(localStorage.getItem("favTools")) || [];
+
+let history =
+    JSON.parse(localStorage.getItem("toolHistory")) || [];
+
+let used =
+    Number(localStorage.getItem("usedTools")) || 0;
+
+
+/* ==========================
+   SIDEBAR / PAGE
+========================== */
+
+function toggleSidebar(){
+    document.getElementById("sidebar")
+        .classList.toggle("open");
+}
+
+function showPage(page,btn){
+
+    document.getElementById("homePage").style.display =
+        page==="home" ? "block":"none";
+
+    document.getElementById("favoritesPage").style.display =
+        page==="favorites" ? "block":"none";
+
+    document.getElementById("historyPage").style.display =
+        page==="history" ? "block":"none";
+
+    document.querySelectorAll(".side-btn")
+        .forEach(x=>x.classList.remove("active"));
+
+    if(btn) btn.classList.add("active");
+
+    if(page==="favorites") renderFavorites();
+    if(page==="history") renderHistory();
+
+}
+
+
+/* ==========================
+   THEME
+========================== */
+
+function toggleTheme(){
+
+    document.body.classList.toggle("dark");
+
+    localStorage.setItem(
+        "darkMode",
+        document.body.classList.contains("dark")
+    );
+
+}
+
+if(localStorage.getItem("darkMode")==="true"){
+    document.body.classList.add("dark");
+}
+
+
+/* ==========================
+   TOOLS
+========================== */
+
+function openTool(id,title){
+
+    document.getElementById("toolWindow")
+        .classList.add("show");
+
+    document.getElementById("windowTitle")
+        .textContent = title;
+
+    document.querySelectorAll(".tool-content")
+        .forEach(x=>x.style.display="none");
+
+    document.getElementById(id+"Tool")
+        .style.display="block";
+
+    used++;
+
+    localStorage.setItem("usedTools",used);
+
+    addHistory(id,title);
+
+    updateStats();
+
+    document.getElementById("toolWindow")
+        .scrollIntoView({behavior:"smooth"});
+
+}
+
+function closeTool(){
+
+    document.getElementById("toolWindow")
+        .classList.remove("show");
+
+}
+
+
+/* ==========================
+   SEARCH
+========================== */
+
+function filterTools(){
+
+    const q =
+        document.getElementById("globalSearch")
+        .value.toLowerCase();
+
+    document.querySelectorAll(".tool")
+        .forEach(card=>{
+
+            const name =
+                card.dataset.name || "";
+
+            card.style.display =
+                name.includes(q) ? "block":"none";
+
+        });
+
+}
+
+
+/* ==========================
+   FAVORITES
+========================== */
+
+function favorite(event,id){
+
+    event.stopPropagation();
+
+    if(favorites.includes(id)){
+
+        favorites =
+            favorites.filter(x=>x!==id);
+
+    }else{
+
+        favorites.push(id);
+
+    }
+
+    localStorage.setItem(
+        "favTools",
+        JSON.stringify(favorites)
+    );
+
+    updateStars();
+
+    updateStats();
+
+}
+
+function updateStars(){
+
+    document.querySelectorAll(".tool")
+        .forEach(card=>{
+
+            const id =
+                card.getAttribute("onclick")
+                ?.match(/'([^']+)'/)?.[1];
+
+            const star =
+                card.querySelector(".star");
+
+            if(!star) return;
+
+            if(favorites.includes(id)){
+                star.textContent="★";
+                star.classList.add("on");
+            }else{
+                star.textContent="☆";
+                star.classList.remove("on");
+            }
+
+        });
+
+}
+
+function renderFavorites(){
+
+    const box =
+        document.getElementById("favoriteList");
+
+    if(!favorites.length){
+
+        box.innerHTML =
+            `<div class="empty">
+                ⭐ Hozircha sevimli vositalar yo‘q.
+            </div>`;
+
+        return;
+
+    }
+
+    box.innerHTML =
+        `<div class="tools">
+        ${
+            favorites.map(id=>`
+                <div class="tool"
+                     onclick="openTool('${id}','${toolNames[id]}')">
+                    <div class="tool-icon">
+                        ${iconFor(id)}
+                    </div>
+                    <h3>${toolNames[id]}</h3>
+                    <p>Sevimli vositangiz</p>
+                </div>
+            `).join("")
+        }
+        </div>`;
+
+}
+
+function iconFor(id){
+
+    return {
+        calculator:"🧮",
+        currency:"💰",
+        units:"📏",
+        age:"🎂",
+        timer:"⏱️",
+        todo:"📝",
+        password:"🔐",
+        text:"📋",
+        color:"🎨"
+    }[id] || "🧰";
+
+}
+
+
+/* ==========================
+   HISTORY
+========================== */
+
+function addHistory(id,title){
+
+    history.unshift({
+        id,
+        title,
+        time:new Date().toLocaleString("uz-UZ")
+    });
+
+    history =
+        history.slice(0,15);
+
+    localStorage.setItem(
+        "toolHistory",
+        JSON.stringify(history)
+    );
+
+}
+
+function renderHistory(){
+
+    const box =
+        document.getElementById("historyList");
+
+    if(!history.length){
+
+        box.innerHTML =
+            `<div class="empty">
+                🕘 Tarix hozircha bo‘sh.
+            </div>`;
+
+        return;
+
+    }
+
+    box.innerHTML =
+        history.map(item=>`
+
+            <div class="history-item">
+
+                <span>
+                    ${iconFor(item.id)}
+                    ${item.title}
+                </span>
+
+                <small class="muted">
+                    ${item.time}
+                </small>
+
+            </div>
+
+        `).join("");
+
+}
+
+function clearHistory(){
+
+    history=[];
+
+    localStorage.removeItem("toolHistory");
+
+    renderHistory();
+
+}
+
+
+/* ==========================
+   STATS
+========================== */
+
+function updateStats(){
+
+    document.getElementById("usedCount")
+        .textContent=used;
+
+    document.getElementById("favCount")
+        .textContent=favorites.length;
+
+    updateStars();
+
+}
+
+updateStats();
+
+
+/* ==========================
+   SCROLL
+========================== */
+
+function scrollToTools(){
+
+    document.getElementById("toolsGrid")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+/* ==========================
+   CALCULATOR
+========================== */
+
+let calc="";
+
+function calcAdd(x){
+
+    calc+=x;
+
+    document.getElementById("calcScreen")
+        .textContent=calc || "0";
+
+}
+
+function calcClear(){
+
+    calc="";
+
+    document.getElementById("calcScreen")
+        .textContent="0";
+
+}
+
+function calcDelete(){
+
+    calc=calc.slice(0,-1);
+
+    document.getElementById("calcScreen")
+        .textContent=calc || "0";
+
+}
+
+function calcResult(){
+
+    try{
+
+        calc=String(
+            Function("return "+calc)()
+        );
+
+        document.getElementById("calcScreen")
+            .textContent=calc;
+
+    }catch{
+
+        calc="";
+
+        document.getElementById("calcScreen")
+            .textContent="Xato";
+
+    }
+
+}
+
+
+/* ==========================
+   CURRENCY
+========================== */
+
+const rates={
+    UZS:1,
+    USD:12500,
+    EUR:14500
+};
+
+function convertCurrency(){
+
+    const amount =
+        Number(
+            document.getElementById("currencyAmount").value
+        );
+
+    const from =
+        document.getElementById("fromCurrency").value;
+
+    const to =
+        document.getElementById("toCurrency").value;
+
+    if(!amount){
+
+        document.getElementById("currencyResult")
+            .textContent="Miqdorni kiriting.";
+
+        return;
+
+    }
+
+    const result =
+        amount*rates[from]/rates[to];
+
+    document.getElementById("currencyResult")
+        .textContent =
+        `${amount} ${from} ≈ ${result.toFixed(2)} ${to}`;
+
+}
+
+
+/* ==========================
+   UNITS
+========================== */
+
+function convertUnit(){
+
+    const value =
+        Number(
+            document.getElementById("unitValue").value
+        );
+
+    const type =
+        document.getElementById("unitType").value;
+
+    if(!value){
+
+        document.getElementById("unitResult")
+            .textContent="Qiymat kiriting.";
+
+        return;
+
+    }
+
+    const data={
+        km:[1000,"metr"],
+        m:[100,"santimetr"],
+        kg:[1000,"gramm"],
+        l:[1000,"millilitr"]
+    };
+
+    const result =
+        value*data[type][0];
+
+    document.getElementById("unitResult")
+        .textContent =
+        `${result} ${data[type][1]}`;
+
+}
+
+
+/* ==========================
+   AGE
+========================== */
+
+function calculateAge(){
+
+    const value =
+        document.getElementById("birthDate").value;
+
+    if(!value)return;
+
+    const birth=new Date(value);
+    const now=new Date();
+
+    let age=
+        now.getFullYear()-birth.getFullYear();
+
+    const m=
+        now.getMonth()-birth.getMonth();
+
+    if(
+        m<0 ||
+        (m===0 && now.getDate()<birth.getDate())
+    ){
+        age--;
+    }
+
+    document.getElementById("ageResult")
+        .textContent=
+        `🎉 Siz ${age} yoshdasiz.`;
+
+}
+
+
+/* ==========================
+   TIMER
+========================== */
+
+let timerSeconds=0;
+let timerInterval=null;
+
+function updateTimer(){
+
+    const h=
+        Math.floor(timerSeconds/3600);
+
+    const m=
+        Math.floor((timerSeconds%3600)/60);
+
+    const s=
+        timerSeconds%60;
+
+    document.getElementById("timerDisplay")
+        .textContent=
+        `${String(h).padStart(2,"0")}:`+
+        `${String(m).padStart(2,"0")}:`+
+        `${String(s).padStart(2,"0")}`;
+
+}
+
+function startTimer(){
+
+    if(timerInterval)return;
+
+    timerInterval=setInterval(()=>{
+
+        timerSeconds++;
+
+        updateTimer();
+
+    },1000);
+
+}
+
+function pauseTimer(){
+
+    clearInterval(timerInterval);
+
+    timerInterval=null;
+
+}
+
+function resetTimer(){
+
+    pauseTimer();
+
+    timerSeconds=0;
+
+    updateTimer();
+
+}
+
+
+/* ==========================
+   TODO
+========================== */
+
+let todos =
+    JSON.parse(
+        localStorage.getItem("todos")
+    ) || [];
+
+function addTodo(){
+
+    const input=
+        document.getElementById("todoInput");
+
+    const text=
+        input.value.trim();
+
+    if(!text)return;
+
+    todos.push(text);
+
+    input.value="";
+
+    saveTodos();
+
+    renderTodos();
+
+}
+
+function deleteTodo(index){
+
+    todos.splice(index,1);
+
+    saveTodos();
+
+    renderTodos();
+
+}
+
+function saveTodos(){
+
+    localStorage.setItem(
+        "todos",
+        JSON.stringify(todos)
+    );
+
+}
+
+function renderTodos(){
+
+    const list=
+        document.getElementById("todoList");
+
+    list.innerHTML="";
+
+    todos.forEach((todo,i)=>{
+
+        list.innerHTML+=`
+            <li>
+                <span>✅ ${escapeHTML(todo)}</span>
+                <button class="delete"
+                        onclick="deleteTodo(${i})">
+                    🗑
+                </button>
+            </li>
+        `;
+
+    });
+
+}
+
+function escapeHTML(text){
+
+    const div=document.createElement("div");
+
+    div.textContent=text;
+
+    return div.innerHTML;
+
+}
+
+renderTodos();
+
+
+/* ==========================
+   PASSWORD
+========================== */
+
+function generatePassword(){
+
+    let length=
+        Number(
+            document.getElementById("passwordLength").value
+        );
+
+    if(length<4)length=16;
+    if(length>50)length=50;
+
+    const chars=
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"+
+        "abcdefghijklmnopqrstuvwxyz"+
+        "0123456789"+
+        "!@#$%^&*()_+-=";
+
+    let password="";
+
+    for(let i=0;i<length;i++){
+
+        password+=
+            chars[
+                Math.floor(
+                    Math.random()*chars.length
+                )
+            ];
+
+    }
+
+    document.getElementById("passwordResult")
+        .textContent=password;
+
+}
+
+function copyPassword(){
+
+    const text=
+        document.getElementById("passwordResult")
+        .textContent;
+
+    if(
+        !text ||
+        text.includes("Parol yaratish")
+    )return;
+
+    navigator.clipboard.writeText(text);
+
+    alert("📋 Parol nusxalandi!");
+
+}
+
+
+/* ==========================
+   TEXT ANALYZER
+========================== */
+
+function analyzeText(){
+
+    const text=
+        document.getElementById("textInput").value;
+
+    const words=
+        text.trim()
+        ? text.trim().split(/\s+/).length
+        : 0;
+
+    document.getElementById("words")
+        .textContent=words;
+
+    document.getElementById("chars")
+        .textContent=text.length;
+
+    document.getElementById("lines")
+        .textContent=
+        text ? text.split("\n").length : 0;
+
+}
+
+
+/* ==========================
+   COLOR
+========================== */
+
+let currentColor="#2563EB";
+
+function newColor(){
+
+    const chars="0123456789ABCDEF";
+
+    currentColor="#";
+
+    for(let i=0;i<6;i++){
+
+        currentColor+=
+            chars[
+                Math.floor(Math.random()*16)
+            ];
+
+    }
+
+    document.getElementById("colorPreview")
+        .style.background=currentColor;
+
+    document.getElementById("hexColor")
+        .textContent=currentColor;
+
+}
+
+function copyColor(){
+
+    navigator.clipboard.writeText(currentColor);
+
+    alert("🎨 Rang kodi nusxalandi!");
+
+}
+
+
+/* ==========================
+   CLEAR DATA
+========================== */
+
+function clearAllData(){
+
+    if(!confirm(
+        "Barcha saqlangan ma'lumotlarni o‘chirishni xohlaysizmi?"
+    ))return;
+
+    localStorage.clear();
+
+    location.reload();
+
+}
+
+
+/* ==========================
+   KEYBOARD CALCULATOR
+========================== */
+
+document.addEventListener("keydown",e=>{
+
+    const calculator=
+        document.getElementById("calculatorTool");
+
+    if(
+        document.getElementById("toolWindow")
+        .classList.contains("show") &&
+        calculator.style.display!=="none"
+    ){
+
+        if("0123456789+-*/.%".includes(e.key))
+            calcAdd(e.key);
+
+        if(e.key==="Enter")
+            calcResult();
+
+        if(e.key==="Backspace")
+            calcDelete();
+
+        if(e.key==="Escape")
+            calcClear();
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
+
